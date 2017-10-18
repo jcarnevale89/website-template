@@ -12,9 +12,6 @@ const cssnano = require('cssnano');
 const mqpacker = require('css-mqpacker');
 const rename = require('gulp-rename');
 
-const src = './src';
-const dest = './dist';
-
 const cssDevProcessors = [
   autoprefixer({
     browsers: ['> 1%', 'last 10 versions'],
@@ -30,20 +27,20 @@ const cssProdProcessors = cssDevProcessors.concat([
 
 // PUG/HTML
 gulp.task('views-dev', function() {
-  return gulp.src(src+'/pug/*.pug')
+  return gulp.src('src/pug/*.pug')
   .pipe(pug())
-  .pipe(gulp.dest(dest))
+  .pipe(gulp.dest('dist'))
   .pipe(browserSync.stream({match: '**/*.html'}))
 });
 gulp.task('views-prod', function() {
-  return gulp.src(src+'/pug/*.pug')
+  return gulp.src('src/pug/*.pug')
   .pipe(pug())
-  .pipe(gulp.dest(dest))
+  .pipe(gulp.dest('dist'))
 });
 
-// CSS
-gulp.task('css-dev', function() {
-  return gulp.src(src+'/stylus/index.styl')
+// Stylus
+gulp.task('stylus-dev', function() {
+  return gulp.src('src/stylus/index.styl')
   .pipe(sourcemaps.init())
   .pipe(stylus({
     compress: false
@@ -51,41 +48,46 @@ gulp.task('css-dev', function() {
   .pipe(postcss(cssDevProcessors))
   .pipe(rename('master.css'))
   .pipe(sourcemaps.write())
-  .pipe(gulp.dest(dest+'/css'))
+  .pipe(gulp.dest('dist/css'))
   .pipe(browserSync.stream({match: '**/*.css'}))
 });
-gulp.task('css-prod', function() {
-  return gulp.src(src+'/stylus/index.styl')
+gulp.task('stylus-prod', function() {
+  return gulp.src('src/stylus/index.styl')
   .pipe(stylus())
   .pipe(postcss(cssProdProcessors))
   .pipe(rename('master.css'))
-  .pipe(gulp.dest(dest+'/css'))
+  .pipe(gulp.dest('dist/css'))
 });
 
 // JS
 gulp.task('js-dev', function() {
-  return gulp.src(src+'/js/index.js')
+  return gulp.src('src/js/index.js')
   .pipe(babel({
     presets: ['env']
   }))
-  .pipe(gulp.dest(dest+'/js'))
+  .pipe(gulp.dest('dist/js'))
   .pipe(browserSync.stream({match: '**/*.js'}))
 });
 gulp.task('js-prod', function() {
-  return gulp.src(src+'/js/index.js')
+  return gulp.src('src/js/index.js')
   .pipe(babel({
     presets: ['env']
   }))
   .pipe(uglify())
-  .pipe(gulp.dest(dest+'/js'))
-  .pipe(browserSync.stream({match: '**/*.js'}))
+  .pipe(gulp.dest('dist/js'))
+});
+
+// Vendor
+gulp.task('vendor', function() {
+  return gulp.src('src/vendor/*.*')
+  .pipe(gulp.dest('dist/vendor'));
 });
 
 // Images
 gulp.task('img', function() {
-  return gulp.src(src+'/img/**/*.*')
+  return gulp.src('src/img/**/*.*')
   .pipe(imagemin())
-  .pipe(gulp.dest(dest+'/img'));
+  .pipe(gulp.dest('dist/img'));
 });
 
 
@@ -93,17 +95,17 @@ gulp.task('img', function() {
 gulp.task('serv', function() {
   browserSync.init({
     server: {
-      baseDir: dest
+      baseDir: 'dist'
     },
     open: false,
     notify: false,
     reloadOnRestart: true
   })
-  gulp.watch(src+'/pug/**/*.pug', ['views-dev'])
-  gulp.watch(src+'/stylus/**/*.styl', ['css-dev'])
-  gulp.watch(src+'/js/*.js', ['js-dev'])
+  gulp.watch('src/pug/**/*.pug', ['views-dev'])
+  gulp.watch('src/stylus/**/*.styl', ['stylus-dev'])
+  gulp.watch('src/js/*.js', ['js-dev'])
 });
 
 // Main gulp.tasks
-gulp.task('default', ['views-dev', 'css-dev', 'js-dev', 'img', 'serv']);
-gulp.task('build', ['views-prod', 'css-prod', 'js-prod', 'img']);
+gulp.task('default', ['views-dev', 'stylus-dev', 'js-dev', 'vendor', 'img', 'serv']);
+gulp.task('build', ['views-prod', 'stylus-prod', 'js-prod', 'vendor', 'img']);

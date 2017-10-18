@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Simple template for single or multi page websites",
   "scripts": {
-    "dev": "gulp",
-    "build": "gulp build"
+    "dev": "rm -rf dist && gulp",
+    "build": "rm -rf dist && gulp build"
   },
   "author": "Jake Carnevale <jake@autocustoms.com>",
   "license": "ISC",
