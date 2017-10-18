@@ -10,7 +10,7 @@ Clone this to begin a new project.
 # install dependencies
 yarn
 
-# serve file via browsersync with reloading for HTML/CSS/JS
+# serve files via browsersync with reloading for HTML/CSS/JS
 yarn dev
 
 # build for production with minification
