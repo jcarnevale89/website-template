@@ -1,8 +1,7 @@
 {
   "name": "website-template",
   "version": "1.0.0",
-  "description": "Simple template for Pug and Stylus",
-  "main": "index.js",
+  "description": "Simple template for single or multi page websites",
   "scripts": {
     "dev": "gulp",
     "build": "gulp build"
