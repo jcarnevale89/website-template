@@ -1,11 +1,32 @@
 {
   "name": "website-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple template for Pug and Stylus",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "gulp",
+    "build": "gulp build"
   },
   "author": "Jake Carnevale <jake@autocustoms.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^6.4.1",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "browser-sync": "^2.16.0",
+    "css-mqpacker": "^5.0.1",
+    "cssnano": "^3.7.4",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-postcss": "^6.2.0",
+    "gulp-pug": "^3.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-stylus": "^2.5.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "^4.3.9",
+    "npm-run-all": "^3.1.0",
+    "postcss-cli": "^2.6.0",
+    "stylus": "^0.54.5"
+  }
 }
