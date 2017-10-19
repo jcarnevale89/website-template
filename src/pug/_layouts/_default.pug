@@ -8,9 +8,11 @@ html(lang='en')
     link(rel="stylesheet" href="/vendor/bootstrap.min.css")
     link(rel="stylesheet" href="/css/master.css")
   body
-    include ../_partials/_header
-    block content
-    include ../_partials/_footer
+    include ../_partials/_nav
+    main
+      include ../_partials/_header
+      block content
+      include ../_partials/_footer
     script(src="/vendor/jquery-3.2.1.slim.min.js")
     script(src="/vendor/popper.min.js")
     script(src="/vendor/bootstrap.min.js")
